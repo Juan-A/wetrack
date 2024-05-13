@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SpotifyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,5 +17,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('spotifyLogin',[SpotifyController::class, 'login'])->name('spotify.login');
+Route::get('spotifyProfile', [SpotifyController::class, 'getUser'])->name('profile');
+Route::get('spotifyAuthorize', [SpotifyController::class, 'authorize'])->name('spotify.authorize');
+
 
 require __DIR__.'/auth.php';
