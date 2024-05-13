@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('spotifyLogin',[SpotifyController::class, 'login'])->name('spotify.login');
-Route::get('spotifyProfile', [SpotifyController::class, 'getUser'])->name('profile');
+Route::get('spotifyProfile', [SpotifyController::class, 'getUser'])->name('spotify.profile');
 Route::get('spotifyAuthorize', [SpotifyController::class, 'authorize'])->name('spotify.authorize');
 
 
