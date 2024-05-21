@@ -1,12 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SpotifyController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SpotifyController::class,'landingPage'])->name('landingPage');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -17,10 +16,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::get('getPubToken',[SpotifyController::class,'getGlobalTrends'])->name('spotify.getpubtoken');
 Route::get('spotifyLogin',[SpotifyController::class, 'login'])->name('spotify.login');
 Route::get('spotifyProfile', [SpotifyController::class, 'getUser'])->name('spotify.profile');
 Route::get('spotifyAuthorize', [SpotifyController::class, 'authorize'])->name('spotify.authorize');
 
+//Search
+Route::get('search',[SearchController::class,'index'])->name('search.index');
 
 require __DIR__.'/auth.php';

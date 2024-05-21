@@ -22,7 +22,87 @@ class SpotifyController extends Controller
         $this->clientId = config('spotify.clientId');
         $this->clientSecret = config('spotify.clientSecret');
     }
+    public function landingPage()
+    {
 
+        return view('welcome', [
+            'trends' => $this->getGlobalTrends(),
+        ]);
+    }
+
+    //Generic API functions
+    private function getPubToken()
+    {
+        if (!SpotifyToken::find(1)->authToken) {
+            $response = Http::asForm()->post('https://accounts.spotify.com/api/token', [
+                'grant_type' => "client_credentials",
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret
+            ]);
+            SpotifyToken::find(1)->update([
+                'authToken' => json_decode($response, true)['access_token'],
+            ]);
+        } else if (Carbon::now()->diffInMinutes(SpotifyToken::find(1)->updated_at) * -1 >= 58) {
+            $response = Http::asForm()->post('https://accounts.spotify.com/api/token', [
+                'grant_type' => "client_credentials",
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret
+            ]);
+            SpotifyToken::find(1)->update([
+                'authToken' => json_decode($response, true)['access_token'],
+            ]);
+        }
+
+        return SpotifyToken::find(1)->authToken;
+    }
+    public function getGlobalTrends()
+    {
+        $token = $this->getPubToken();
+        $globalPlaylist = "https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF";
+        /*
+        curl -X "GET" "https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF" -H "Accept: application/json" -H 
+        "Content-Type: application/json" -H "Authorization: Bearer XXX"
+        */
+        $songs = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ])
+            ->get($globalPlaylist);
+
+        $tracks = [];
+        $json = json_decode($songs, 1)['tracks']['items'];
+        for ($i = 0; $i < 5; $i++) {
+            $tracks[$i]['image300'] = $json[$i]['track']['album']['images']['1']['url'];
+            $tracks[$i]['name'] = $json[$i]['track']['name'];
+            $tracks[$i]['artists'] = $json[$i]['track']['artists'];
+            $tracks[$i]['uri'] = $json[$i]['track']['external_urls']['spotify'];
+        }
+        return $tracks;
+    }
+    public function search($query, $isAuth)
+    {
+        if ($isAuth) {
+            $user = $this->refreshToken();
+            $spotify = $user->spotify;
+            $token = $spotify->authToken;
+        } else {
+            $token = $this->getPubToken();
+        }
+        $query = urlencode($query);
+        $url = "https://api.spotify.com/v1/search?q=$query&type=album%2Ctrack&limit=5";
+        $results = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ])
+            ->get($url);
+
+        return json_decode($results,1);
+    }
+
+
+    //User releated functions.
     public function login()
     {
         $scopes = 'user-read-private user-read-email';
@@ -56,12 +136,12 @@ class SpotifyController extends Controller
             'Authorization' => 'Bearer ' . $acc_token
         ])
             ->get('https://api.spotify.com/v1/me');
-        $json = json_decode($profile,true);
+        $json = json_decode($profile, true);
         $email = $json['email'];
         $name = $json['display_name'];
-        
-        if(!User::where('email',$email)->exists()){
-            $newUser =User::create([
+
+        if (!User::where('email', $email)->exists()) {
+            $newUser = User::create([
                 'name' => $name,
                 'email' => $email,
                 'password' => Hash::make(Str::password(16, true, true, false, false)),
@@ -72,7 +152,7 @@ class SpotifyController extends Controller
         SpotifyToken::create([
             'authToken' => $acc_token,
             'refreshToken' => $refresh_token,
-            'user' => User::where('email',$email)->first()->id
+            'user' => User::where('email', $email)->first()->id
         ]);
         return redirect(route('spotify.profile'));
     }
@@ -80,24 +160,24 @@ class SpotifyController extends Controller
 
     public function refreshToken()
     {
-        $user = User::find(Auth::user()->id)->with('spotify')->first();
+        $user = User::with('spotify')->find(Auth::user()->id);
         $spotify = $user->spotify;
-        if(Carbon::parse($spotify->updated_at)->diffInMinutes() > 59){
+        if (Carbon::parse($spotify->updated_at)->diffInMinutes() > 59) {
             $response = Http::withHeaders([
                 'Authorization' => 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret),
-                'Content-Type'=> 'application/x-www-form-urlencoded'
+                'Content-Type' => 'application/x-www-form-urlencoded'
             ])->asForm()
                 ->post('https://accounts.spotify.com/api/token', [
                     'grant_type' => 'refresh_token',
                     'refresh_token' => trim($spotify->refreshToken),
                 ]);
-                $acc_token = json_decode($response, true)['access_token'];
-                $spotify->update([
-                    'authToken' => $acc_token,
-                    'refreshToken' => $spotify->refreshToken,
-                ]);
+            $acc_token = json_decode($response, true)['access_token'];
+            $spotify->update([
+                'authToken' => $acc_token,
+                'refreshToken' => $spotify->refreshToken,
+            ]);
         }
-        
+
         return $user;
     }
     public function getUser()
