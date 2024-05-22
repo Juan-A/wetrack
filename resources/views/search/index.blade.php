@@ -77,27 +77,28 @@
             <div class="w-2/3 rounded-lg bg-white bg-opacity-40 mt-10 self-center">
                 <div class="flex flex-wrap justify-center">
                     @foreach ($results['albums']['items'] as $item)
-                            <div
-                                class="p-2 m-3 bg-white rounded-lg  basis-1/4 lg:basis-1/6 flex flex-col justify-between">
-                                <a href="#">
-                                <img src="{{ $item['images'][1]['url'] }}">
-                                <span class="text-xs">
-                                    <span class="font-extrabold">{{ $item['name'] }}</span>
-                                </span>
-                                <div class="justify-self-end flex justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
-                                    </svg>
-                                </div>
-                                </a>
+                    <div class="p-2 m-3 bg-white rounded-lg basis-1/4 lg:basis-1/6 flex flex-col">
+                
+                        <a href="#" class="flex flex-col h-full">
+                            <img src="{{ $item['images'][1]['url'] }}">
+                            <span class="text-xs">
+                                <span class="font-extrabold">{{ $item['name'] }}</span>
+                            </span>
+                            <div class="mt-auto flex justify-center pt-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+                                </svg>
                             </div>
+                        </a>
+                    </div>
                     @endforeach
                 </div>
+                
                 <div class="#">
                     @foreach ($results['tracks']['items'] as $item)
-                        <a href="" class="">
+                        <a href="/track/{{$item['id']}}" class="">
                             <div class="p-2 m-3 bg-white rounded-lg flex">
                                 <img src="{{ $item['album']['images'][2]['url'] }}">
                                 <div class="flex self-start ml-4">
