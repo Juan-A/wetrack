@@ -23,11 +23,11 @@
         class="bg-gradient-to-b from-slate-50 via-amber-300 to-red-400 dark:from-slate-700 dark:via-amber-700 dark:to-red-700 min-h-full flex flex-col">
         @include('layouts.navigation')
         <div class="w-full flex justify-center mt-10" id="searchContainer">
-            <form action="{{ route('search.index') }}" method='GET' class=" w-1/2 rounded-lg">
+            <form action="{{ route('search.index') }}" method='GET' class=" w-1/2 rounded-lg" onsubmit="toggleSearchAnimation();">
                 <label class="input input-bordered flex items-center gap-2">
                     <input name="query" type="text" class="grow dark:text-white" placeholder="Search"
                         @if ($searching) value=" {{ $query }} " @endif />
-                    <a href="#" onclick="event.preventDefault(); this.closest('form').submit()">
+                    <a href="#" onclick="event.preventDefault(); this.closest('form').submit(); toggleSearchAnimation();">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                             class="w-4 h-4 stroke-white">
                             <path fill-rule="evenodd"
@@ -35,6 +35,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </a>
+                    <span id="loadingSearch" class="loading loading-dots loading-sm text-white hidden"></span>
                 </label>
             </form>
         </div>
@@ -44,7 +45,7 @@
                     @foreach ($results['albums']['items'] as $item)
                         <div class="p-2 m-3 bg-white rounded-lg basis-1/4 lg:basis-1/6 flex flex-col">
 
-                            <a href="#" class="flex flex-col h-full">
+                            <a href="{{ route('album.show',$item['id']) }}" class="flex flex-col h-full">
                                 <img src="{{ $item['images'][1]['url'] }}">
                                 <span class="text-xs">
                                     <span class="font-extrabold">{{ $item['name'] }}</span>
@@ -91,18 +92,7 @@
                 </div>
             </div>
             <div class="flex w-2/3 self-center justify-between mt-5 mb-5">
-                <form action="search" method="GET">
-                    <input type="hidden" name="query" value="{{ $query }}">
-                    <input type="hidden" name="page" value="{{ $page + 1 }}">
-                    <button class="btn w-fit">
-                        Siguiente Página
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
-                        </svg>
-                    </button>
-                </form>
+                
                 @if ($page != 1)
                     <form action="search" method="GET">
                         <input type="hidden" name="query" value="{{ $query }}">
@@ -117,9 +107,26 @@
                         </button>
                     </form>
                 @endif
+                <form action="search" method="GET">
+                    <input type="hidden" name="query" value="{{ $query }}">
+                    <input type="hidden" name="page" value="{{ $page + 1 }}">
+                    <button class="btn w-fit">
+                        Siguiente Página
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </form>
             </div>
         @endif
     </div>
+    <script>
+        function toggleSearchAnimation(){
+            document.querySelector("#loadingSearch").classList.toggle('hidden')
+        }
+        </script>
 </body>
 
 </html>
