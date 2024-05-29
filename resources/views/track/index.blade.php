@@ -36,10 +36,18 @@
                             <div>
 
                                 @auth
-                                    <a href="{{ url('/dashboard') }}"
-                                        class="rounded-md px-3 py-2 bg-amber-700 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                        Dashboard
-                                    </a>
+                                    <details class="dropdown dropdown-end mr-20 mt-2">
+                                        <summary class="m-1 btn w-0">
+                                            <div class="avatar">
+                                                <div class="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                                    <img src="{{$myavatar}}" />
+                                                </div>
+                                            </div>
+                                        </summary>
+                                        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 text-white">
+                                            <li><a href="{{ url('/dashboard') }}"
+                                                class="bg-amber-700">Dashboard</a></li>                                        </ul>
+                                    </details>
                                 @else
                                     <a href="{{ route('login') }}"
                                         class="rounded-md px-3 py-2 mr-4 bg-amber-700 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
@@ -89,11 +97,13 @@
                     {{ $formattedTime }}
                 </span>
                 <span id="album">
-                    @if ($track['album']['album_type'] == 'single')
-                        {{ __('Single') }}
-                    @else
-                        {{ __('Del álbum ') }} {{ $track['album']['name'] }}
-                    @endif
+                    <a class="link link-secondary" href="{{ route('album.show', $track['album']['id']) }}">
+                        @if ($track['album']['album_type'] == 'single')
+                            {{ __('Single') }}
+                        @else
+                            {{ __('Del álbum ') }} {{ $track['album']['name'] }}
+                        @endif
+                    </a>
                 </span>
                 <div class="flex items-center">
                     <div class="rating rating-lg rating-half">
@@ -119,8 +129,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="card-actions justify-end mt-auto">
                     <a class="btn" href="{{ $track['external_urls']['spotify'] }}">
                         Escuchar en Spotify
@@ -136,9 +144,11 @@
         </div>
         <div class="w-11/12 lg:w-3/5 mt-5 shadow-lg card bg-base-300 rounded-box self-center flex flex-col">
             <h2 class="card-title ml-4 mt-4 dark:text-slate-200">Valora la Canción!
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
-                  </svg>                  
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+                </svg>
             </h2>
             <form method="POST" class="flex flex-col" action="{{ route('track.addreview', $track['id']) }}">
                 @csrf
@@ -149,38 +159,38 @@
                         <div class="rating rating-lg rating-half">
                             <input type="radio" value="null" name="calification" class="rating-hidden "
                                 {{ $usrReview['calification'] == null ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-1  " value="0.5" name="calification"
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-1  "
+                                value="0.5" name="calification"
                                 {{ $usrReview['calification'] == 0.5 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="1" name="calification"
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-2 "
+                                value="1" name="calification"
                                 {{ $usrReview['calification'] == 1 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-1 " value="1.5" name="calification"
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-1 "
+                                value="1.5" name="calification"
                                 {{ $usrReview['calification'] == 1.5 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="2" name="calification"
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-2 "
+                                value="2" name="calification"
                                 {{ $usrReview['calification'] == 2 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-1 " value="2.5" name="calification"
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-1 "
+                                value="2.5" name="calification"
                                 {{ $usrReview['calification'] == 2.5 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="3"
-                                name="calification" {{ $usrReview['calification'] == 3 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-1 " value="3.5"
-                                name="calification" {{ $usrReview['calification'] == 3.5 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="4"
-                                name="calification" {{ $usrReview['calification'] == 4 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-1 " value="4.5"
-                                name="calification" {{ $usrReview['calification'] == 4.5 ? 'checked' : '' }} />
-                            <input type="radio" name="calification"
-                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="5"
-                                name="calification" {{ $usrReview['calification'] == 5 ? 'checked' : '' }} />
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-2 "
+                                value="3" name="calification"
+                                {{ $usrReview['calification'] == 3 ? 'checked' : '' }} />
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-1 "
+                                value="3.5" name="calification"
+                                {{ $usrReview['calification'] == 3.5 ? 'checked' : '' }} />
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-2 "
+                                value="4" name="calification"
+                                {{ $usrReview['calification'] == 4 ? 'checked' : '' }} />
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-1 "
+                                value="4.5" name="calification"
+                                {{ $usrReview['calification'] == 4.5 ? 'checked' : '' }} />
+                            <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-2 "
+                                value="5" name="calification"
+                                {{ $usrReview['calification'] == 5 ? 'checked' : '' }} />
                         </div>
-                        
+
                     </div>
                     <textarea name="review" placeholder="Da la nota!"
                         class="textarea textarea-bordered textarea-lg w-11/12 m-5 dark:text-slate-200">{{ $usrReview->review }}</textarea>
@@ -252,9 +262,7 @@
 
     </div>
     </div>
-    <script>
-
-    </script>
+    <script></script>
 </body>
 
 </html>

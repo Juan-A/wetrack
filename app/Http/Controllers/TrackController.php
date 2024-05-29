@@ -59,7 +59,7 @@ class TrackController extends Controller
             $avg = $sum/$total;
 
         }
-        //$avatars = FacadesGravatar::get('juan13herrero@gmail.com');
+        
         //return print_r($rews);
         $avatars =[];
         foreach ($rews as $rewUser) {
@@ -74,7 +74,8 @@ class TrackController extends Controller
             'total' => $total,
             'avatars' => $avatars,
             'reviews' => $rews,
-            'usrReview' => $usrReview
+            'usrReview' => $usrReview,
+            'myavatar' => FacadesGravatar::get(Auth::user()->email)
         ]);
 
         
