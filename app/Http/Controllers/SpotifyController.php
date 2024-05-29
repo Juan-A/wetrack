@@ -131,7 +131,42 @@ class SpotifyController extends Controller
         ])
             ->get($url), 1);
     }
-
+    public function getAlbum($id, $isAuth)
+    {
+        if ($isAuth && SpotifyToken::where('user', Auth::id())->exists()) {
+            $user = $this->refreshToken();
+            $spotify = $user->spotify;
+            $token = $spotify->authToken;
+        } else {
+            $token = $this->getPubToken();
+        }
+        $query = urlencode($id);
+        $url = "https://api.spotify.com/v1/albums/$query";
+        return json_decode(Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ])
+            ->get($url), 1);
+    }
+    public function getAlbumTracks($id, $isAuth)
+    {
+        if ($isAuth && SpotifyToken::where('user', Auth::id())->exists()) {
+            $user = $this->refreshToken();
+            $spotify = $user->spotify;
+            $token = $spotify->authToken;
+        } else {
+            $token = $this->getPubToken();
+        }
+        $query = urlencode($id);
+        $url = "https://api.spotify.com/v1/albums/$query/tracks";
+        return json_decode(Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ])
+            ->get($url), 1);
+    }
 
     //User releated functions.
     public function login()
