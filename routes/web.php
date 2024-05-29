@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SearchController;
@@ -29,4 +30,5 @@ Route::get('search',[SearchController::class,'index'])->name('search.index');
 Route::get('track/{track}',[TrackController::class,'show'])->name('track.show');
 Route::post('track/{track}/addReview',[ReviewController::class,'store'])->name('track.addreview')->middleware(['auth']);
 
+Route::get('album/{album}',[AlbumController::class,'show'])->name('album.show');
 require __DIR__.'/auth.php';
