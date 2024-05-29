@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SpotifyController;
 use App\Http\Controllers\TrackController;
@@ -26,5 +27,6 @@ Route::get('spotifyAuthorize', [SpotifyController::class, 'authorize'])->name('s
 Route::get('search',[SearchController::class,'index'])->name('search.index');
 
 Route::get('track/{track}',[TrackController::class,'show'])->name('track.show');
+Route::post('track/{track}/addReview',[ReviewController::class,'store'])->name('track.addreview')->middleware(['auth']);
 
 require __DIR__.'/auth.php';

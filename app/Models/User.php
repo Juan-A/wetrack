@@ -17,9 +17,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function reviews(): HasMany
+    public function review(): HasMany
     {
-        return $this->hasMany(Review::class, 'review_id');
+        return $this->hasMany(Review::class);
     }
     public function spotify(): HasOne
     {

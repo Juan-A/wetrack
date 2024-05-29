@@ -14,6 +14,17 @@ class Track extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+
+    protected $fillable = [
+        'spotify_id',
+        'name',
+        'description'
+    ];
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'spotify_id', 'spotify_id');

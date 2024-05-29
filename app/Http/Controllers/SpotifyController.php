@@ -82,7 +82,7 @@ class SpotifyController extends Controller
     }
     public function search($query, $isAuth)
     {
-        if ($isAuth) {
+        if ($isAuth && SpotifyToken::where('user',Auth::id())->exists()) {
             $user = $this->refreshToken();
             $spotify = $user->spotify;
             $token = $spotify->authToken;
@@ -101,7 +101,7 @@ class SpotifyController extends Controller
         return json_decode($results,1);
     }
     public function getTrack($id,$isAuth){
-        if ($isAuth) {
+        if ($isAuth && SpotifyToken::where('user',Auth::id())->exists()) {
             $user = $this->refreshToken();
             $spotify = $user->spotify;
             $token = $spotify->authToken;

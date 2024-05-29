@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
@@ -58,18 +58,15 @@
                 </div>
             </div>
         </header>
-
-        <div class="w-11/12 lg:w-3/5 rounded-lg bg-white bg-opacity-40 mt-10 self-center flex">
-            <div class="p-4">
-                <img src="{{ $track['album']['images'][1]['url'] }}" class="rounded-lg">
-            </div>
-            <div class="flex flex-col items-center basis-full">
-                <span class="text-3xl font-bold mt-4 text-center">{{ $track['name'] }}</span>
-                <span class="text-center mt-0">
-                    @php
-                        $artistNumber = count($track['artists']);
-                        $counter = 0;
-                    @endphp
+        <div class="card w-11/12 md:w-2/5 lg:w-3/5 lg:card-side bg-base-100 shadow-xl self-center mt-5">
+            <figure><img class="w-full h-full" src="{{ $track['album']['images'][1]['url'] }}" alt="Album" />
+            </figure>
+            <div class="card-body dark:text-slate-300">
+                <h2 class="card-title">{{ $track['name'] }}</h2>
+                <span>@php
+                    $artistNumber = count($track['artists']);
+                    $counter = 0;
+                @endphp
 
                     @foreach ($track['artists'] as $artist)
                         De {{ $artist['name'] }}
@@ -83,7 +80,7 @@
                         @endif
                     @endforeach
                 </span>
-                <span class="italic mt-2">
+                <span>
                     @php
                         $milliseconds = $track['duration_ms'];
                         $interval = \Carbon\CarbonInterval::milliseconds($milliseconds);
@@ -98,26 +95,166 @@
                         {{ __('Del álbum ') }} {{ $track['album']['name'] }}
                     @endif
                 </span>
-                <div class="rating rating-lg rating-half">
-                    <input type="radio" name="rating-10" class="rating-hidden" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" checked />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-1" />
-                    <input type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
-                  </div>
+                <div class="flex items-center">
+                    <div class="rating rating-lg rating-half">
+                        @for ($i = 1; $i <= 10; $i++)
+                            <input type="radio" name="final-rating"
+                                class="bg-green-500 mask mask-star-2 {{ $i % 2 == 0 ? 'mask-half-2' : 'mask-half-1' }}"
+                                {{ $i <= $avg * 2 ? 'checked' : '' }} disabled />
+                        @endfor
+                    </div>
+                    <div class="flex items-center flex-grow">
+
+                        <span class="basis-full sm:basis-1/2 ml-2">
+                            @if ($avg != null)
+                                Calificación de {{ $avg }} basada en
+                                @if ($total > 1)
+                                    {{ $total }} calificaciones.
+                                @else
+                                    {{ $total }} calificación.
+                                @endif
+                            @endif
+
+                        </span>
+                    </div>
+                </div>
+
+
+
+                <div class="card-actions justify-end mt-auto">
+                    <a class="btn" href="{{ $track['external_urls']['spotify'] }}">
+                        Escuchar en Spotify
+                        <svg xmlns="http://www.w3.org/2000/svg" class="fill-black dark:fill-slate-200" width="24"
+                            height="24" viewBox="0 0 24 24" style="transform: ;msFilter:;">
+                            <path
+                                d="M12.01 2.019c-5.495 0-9.991 4.496-9.991 9.991 0 5.494 4.496 9.99 9.991 9.99 5.494 0 9.99-4.496 9.99-9.99 0-5.495-4.446-9.991-9.99-9.991zm4.595 14.436c-.199.299-.549.4-.85.201-2.349-1.45-5.296-1.75-8.793-.951-.348.102-.648-.148-.748-.449-.101-.35.149-.648.45-.749 3.795-.85 7.093-.499 9.69 1.1.35.149.4.548.251.848zm1.2-2.747c-.251.349-.7.499-1.051.249-2.697-1.646-6.792-2.148-9.939-1.148-.398.101-.85-.1-.949-.498-.101-.402.1-.852.499-.952 3.646-1.098 8.143-.548 11.239 1.351.3.149.45.648.201.998zm.099-2.799c-3.197-1.897-8.542-2.097-11.59-1.146a.938.938 0 0 1-1.148-.6.937.937 0 0 1 .599-1.151c3.547-1.049 9.392-.85 13.089 1.351.449.249.599.849.349 1.298-.25.35-.849.498-1.299.248z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
             </div>
+        </div>
+        <div class="w-11/12 lg:w-3/5 mt-5 shadow-lg card bg-base-300 rounded-box self-center flex flex-col">
+            <h2 class="card-title ml-4 mt-4 dark:text-slate-200">Valora la Canción!
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+                  </svg>                  
+            </h2>
+            <form method="POST" class="flex flex-col" action="{{ route('track.addreview', $track['id']) }}">
+                @csrf
+                <input type="hidden" value="{{ $track['id'] }}" name="id">
 
+                @can('update', $usrReview)
+                    <div class="flex flex-wrap items-center ml-5 mt-5 mr-10">
+                        <div class="rating rating-lg rating-half">
+                            <input type="radio" value="null" name="calification" class="rating-hidden "
+                                {{ $usrReview['calification'] == null ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-1  " value="0.5" name="calification"
+                                {{ $usrReview['calification'] == 0.5 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="1" name="calification"
+                                {{ $usrReview['calification'] == 1 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-1 " value="1.5" name="calification"
+                                {{ $usrReview['calification'] == 1.5 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="2" name="calification"
+                                {{ $usrReview['calification'] == 2 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-1 " value="2.5" name="calification"
+                                {{ $usrReview['calification'] == 2.5 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="3"
+                                name="calification" {{ $usrReview['calification'] == 3 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-1 " value="3.5"
+                                name="calification" {{ $usrReview['calification'] == 3.5 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="4"
+                                name="calification" {{ $usrReview['calification'] == 4 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-1 " value="4.5"
+                                name="calification" {{ $usrReview['calification'] == 4.5 ? 'checked' : '' }} />
+                            <input type="radio" name="calification"
+                                class="bg-green-500 mask mask-star-2 mask-half-2 " value="5"
+                                name="calification" {{ $usrReview['calification'] == 5 ? 'checked' : '' }} />
+                        </div>
+                        
+                    </div>
+                    <textarea name="review" placeholder="Da la nota!"
+                        class="textarea textarea-bordered textarea-lg w-11/12 m-5 dark:text-slate-200">{{ $usrReview->review }}</textarea>
+                @else
+                    <div class="rating rating-md rating-half ml-5 mt-5 mr-10">
+                        <input type="radio" value="null" name="calification" class="rating-hidden" />
+                        <input type="radio" value="0.5" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-1" />
+                        <input type="radio" value="1" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-2" />
+                        <input type="radio" value="1.5" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-1" checked />
+                        <input type="radio" value="2" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-2" />
+                        <input type="radio" value="2.5" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-1" />
+                        <input type="radio" value="3" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-2" />
+                        <input type="radio" value="3.5" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-1" />
+                        <input type="radio" value="4" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-2" />
+                        <input type="radio" value="4.5" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-1" />
+                        <input type="radio" value="5" name="calification"
+                            class="bg-green-500 mask mask-star-2 mask-half-2" />
+                    </div>
+                    <textarea name="review" placeholder="El saber es poder!" class="textarea textarea-bordered textarea-lg w-11/12 m-5"></textarea>
+                @endcan
 
-
+                <button class="btn glass rounded-box">Publicar</button>
+            </form>
 
         </div>
+        <div class="w-11/12 lg:w-3/5 mt-5 shadow-lg card bg-base-300 rounded-box self-center flex flex-col">
+            <h2 class="card-title ml-4 mt-4 dark:text-slate-200">¿Qué se comenta?
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                </svg>
+
+            </h2>
+            <div class="divider"></div>
+            <div class="">
+                @foreach ($reviews as $review)
+                    <div class="chat chat-start ml-4 mb-4">
+                        <div class="chat-image avatar">
+                            <div class="w-10 rounded-full">
+                                <img alt="t" src="{{ $avatars[$review->user->id] }}" />
+                            </div>
+                        </div>
+                        <div class="chat-bubble text-slate-900 bg-slate-300 dark:bg-slate-800 dark:text-slate-300">
+                            <div class="rating rating-sm rating-half">
+                                @for ($i = 1; $i <= 10; $i++)
+                                    <input type="radio" name="rating-{{ $review->id }}"
+                                        class="bg-green-500 mask mask-star-2 {{ $i % 2 == 0 ? 'mask-half-2' : 'mask-half-1' }}"
+                                        {{ $i <= $review->calification * 2 ? 'checked' : '' }} />
+                                @endfor
+                            </div>
+
+                            {{ $review['user']['name'] }}<br>
+                            {{ $review['review'] }}
+                        </div>
+                    </div>
+            </div>
+            @endforeach
+        </div>
+
     </div>
+    </div>
+    <script>
+
+    </script>
 </body>
 
 </html>

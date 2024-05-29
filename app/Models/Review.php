@@ -9,15 +9,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Review extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'spotify_id',
+        'review',
+        'calification'
+    ];
     /**
      * Get the user that owns the Review
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
+    } 
     /**
      * Get the track that owns the Review
      *
@@ -28,3 +34,5 @@ class Review extends Model
         return $this->belongsTo(Track::class, 'spotify_id','spotify_id');
     }
 }
+
+
