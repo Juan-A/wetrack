@@ -75,7 +75,7 @@ class TrackController extends Controller
             'avatars' => $avatars,
             'reviews' => $rews,
             'usrReview' => $usrReview,
-            'myavatar' => FacadesGravatar::get(Auth::user()->email)
+            'myavatar' => Auth::check() ? FacadesGravatar::get(Auth::user()->email) : null
         ]);
 
         
