@@ -27,8 +27,8 @@
                 <div id="pre-logo" class="w-1/4">
                     <h1>Test</h1>
                 </div>
-                <div id="logo" class="w-1/2 flex justify-center">
-                    <x-application-logo class="w-28" />
+                <div id="logo" class="flex justify-center">
+                    <x-application-logo />                    
                 </div>
                 <div id="post-logo" class="w-1/4 text-right self-center">
                     @if (Route::has('login'))

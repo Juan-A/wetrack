@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SpotifyToken;
 use App\Models\User;
 use Carbon\Carbon;
+use Creativeorange\Gravatar\Facades\Gravatar as FacadesGravatar;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +25,14 @@ class SpotifyController extends Controller
     }
     public function landingPage()
     {
-
+        if(Auth::check()){
+            $avatar = FacadesGravatar::get(Auth::user()->email);
+        }else{
+            $avatar = null;
+        }
         return view('welcome', [
             'trends' => $this->getGlobalTrends(),
+            'myavatar' => $avatar
         ]);
     }
 
