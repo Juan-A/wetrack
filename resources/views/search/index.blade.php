@@ -21,41 +21,7 @@
 <body class="font-sans antialiased  dark:text-slate-700 h-dvh">
     <div
         class="bg-gradient-to-b from-slate-50 via-amber-300 to-red-400 dark:from-slate-700 dark:via-amber-700 dark:to-red-700 min-h-full flex flex-col">
-        <header>
-            <!--Header Nav-->
-            <div class="flex justify-between sticky">
-                <div id="pre-logo" class="w-1/4">
-                    <h1>Test</h1>
-                </div>
-                <div id="logo" class="flex justify-center">
-                    <x-application-logo />                    
-                </div>
-                <div id="post-logo" class="w-1/4 text-right self-center">
-                    @if (Route::has('login'))
-                        <nav class="-mx-3 flex flex-1 justify-end mr-3">
-                            @auth
-                                <a href="{{ url('/dashboard') }}"
-                                    class="rounded-md px-3 py-2 bg-amber-700 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                    Dashboard
-                                </a>
-                            @else
-                                <a href="{{ route('login') }}"
-                                    class="rounded-md px-3 py-2 mr-4 bg-amber-700 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                    Log in
-                                </a>
-
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}"
-                                        class="rounded-md px-3 py-2 bg-amber-700 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                        Register
-                                    </a>
-                                @endif
-                            @endauth
-                        </nav>
-                    @endif
-                </div>
-            </div>
-        </header>
+        @include('layouts.navigation')
         <div class="w-full flex justify-center mt-10" id="searchContainer">
             <form action="{{ route('search.index') }}" method='GET' class=" w-1/2 rounded-lg">
                 <label class="input input-bordered flex items-center gap-2">
@@ -152,6 +118,7 @@
                     </form>
                 @endif
             </div>
+        @endif
     </div>
 </body>
 
