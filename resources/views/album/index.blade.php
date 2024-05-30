@@ -48,7 +48,7 @@
                     @if ($album['album_type'] == 'single')
                         {{ __('El álbum tiene 1 canción') }}
                     @else
-                    {{ __('El álbum tiene ') }}{{ $album['total_tracks'] }}{{ __(' canciones.') }} 
+                        {{ __('El álbum tiene ') }}{{ $album['total_tracks'] }}{{ __(' canciones.') }}
                     @endif
                 </span>
                 <div class="flex items-center">
@@ -71,38 +71,41 @@
         </div>
         <div class="w-11/12 lg:w-3/5 mt-5 shadow-lg card bg-base-300 rounded-box self-center flex flex-col">
             <h2 class="card-title ml-4 mt-4 dark:text-slate-200">Canciones del Álbum
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
-                  </svg>                  
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+                </svg>
             </h2>
-@foreach ($tracks['items'] as $item)
-<a href="/track/{{ $item['id'] }}" class="">
-    <div class="p-2 m-3 bg-white rounded-lg flex items-center">
-        <div class="flex self-start ml-4">
-            <span class="text-xs ">
-                <span>
-                    <span class="font-extrabold">{{ $item['name'] }}</span>
-                    <ul>
-                        @foreach ($item['artists'] as $artist)
-                            <li class="italic">{{ $artist['name'] }}</li>
-                        @endforeach
-                    </ul>
-                </span>
-            </span>
+            <div class="flex flex-wrap">
+            @foreach ($tracks['items'] as $item)
+                <a href="/track/{{ $item['id'] }}" class=" basis-full sm:basis-1/3">
+                    <div class="p-2 m-3 bg-white rounded-lg flex items-center">
+                        <div class="flex self-start ml-4">
+                            <span class="text-xs ">
+                                <span>
+                                    <span class="font-extrabold">{{ $item['name'] }}</span>
+                                    <ul>
+                                        @foreach ($item['artists'] as $artist)
+                                            <li class="italic">{{ $artist['name'] }}</li>
+                                        @endforeach
+                                    </ul>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="ml-auto flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+            </div>
         </div>
-        <div class="ml-auto flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
-            </svg>
-        </div>
-    </div>
-</a>
-@endforeach
 
-        </div>
-        
 
     </div>
     </div>

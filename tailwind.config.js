@@ -12,11 +12,14 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                hero2: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Kumbh', ...defaultTheme.fontFamily.sans],
                 hero: ['Kumbh', ...defaultTheme.fontFamily.sans],
             },
         },
+
     },
 
     plugins: [require('daisyui')],
+      
 };

@@ -25,6 +25,7 @@
             <!--Header Nav-->
             @include('layouts.navigation')
             <!--Hero Section-->
+
             <div class="flex items-center flex-col">
                 <span class="text-6xl md:text-8xl font-bold text-center dark:text-gray-200 mt-10 font-hero">
                     Comparte la música
