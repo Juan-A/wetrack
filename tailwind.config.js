@@ -16,10 +16,13 @@ export default {
                 sans: ['Kumbh', ...defaultTheme.fontFamily.sans],
                 hero: ['Kumbh', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                spotify: '#1DB954',
+            },
         },
 
     },
 
     plugins: [require('daisyui')],
-      
+
 };

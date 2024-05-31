@@ -222,7 +222,7 @@ class SpotifyController extends Controller
             'refreshToken' => $refresh_token,
             'user' => User::where('email', $email)->first()->id
         ]);
-        return redirect(route('spotify.profile'));
+        return redirect(route('landingPage'));
     }
 
 
