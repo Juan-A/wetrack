@@ -26,10 +26,10 @@ class ReviewController extends Controller
      */
     public function create(Track $track, Request $request)
     {
-        
     }
-    public function getReviews($spotifyTrackId){
-        return Review::with('user')->where('spotify_id','=',$spotifyTrackId);
+    public function getReviews($spotifyTrackId)
+    {
+        return Review::with('user')->where('spotify_id', '=', $spotifyTrackId);
     }
     /**
      * Store a newly created resource in storage.
@@ -40,19 +40,19 @@ class ReviewController extends Controller
             'spotify_id' => $request->route('track'),
         ]);
         $validated = $request->validate([
-            'calification' => ['lte:5.0','gte:0.0','nullable'],
-            'review' => ['max:500','nullable'],
+            'calification' => ['lte:5.0', 'gte:0.0', 'nullable'],
+            'review' => ['max:500', 'nullable'],
             'spotify_id' => [],
         ]);
-        if(Review::where('user_id',Auth::id())->where('spotify_id',$validated['spotify_id'])->exists()){
-            $old = Review::where('user_id',Auth::id())->where('spotify_id',$validated['spotify_id'])->first();
+        if (Review::where('user_id', Auth::id())->where('spotify_id', $validated['spotify_id'])->exists()) {
+            $old = Review::where('user_id', Auth::id())->where('spotify_id', $validated['spotify_id'])->first();
             Gate::authorize('update', $old);
             $old->update([
                 'calification' => $validated['calification'],
                 'review' => $validated['review']
             ]);
-        }else{
-            if(!Track::where('spotify_id',$validated['spotify_id'])->exists()){
+        } else {
+            if (!Track::where('spotify_id', $validated['spotify_id'])->exists()) {
                 $spotify = new SpotifyController();
                 $track = $spotify->getTrack($validated['spotify_id'], Auth::check());
                 $addTrack = [
@@ -61,7 +61,6 @@ class ReviewController extends Controller
                     'description' => null,
                 ];
                 Track::create($addTrack);
-    
             }
             Review::create([
                 'user_id' => Auth::id(),
@@ -71,10 +70,17 @@ class ReviewController extends Controller
             ]);
         }
 
-        
-        return redirect(route('track.show',$validated['spotify_id']));
-    }
 
+        return redirect(route('track.show', $validated['spotify_id']));
+    }
+    public function topCommented()
+    {
+        $topSongs = Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews')->with('track')
+            ->groupBy('spotify_id')
+            ->orderByDesc('number_of_reviews')
+            ->limit(5)
+            ->get();
+    }
     /**
      * Display the specified resource.
      */

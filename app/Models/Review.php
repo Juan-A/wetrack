@@ -31,7 +31,7 @@ class Review extends Model
      */
     public function track(): BelongsTo
     {
-        return $this->belongsTo(Track::class, 'spotify_id','spotify_id');
+        return $this->belongsTo(Track::class, 'spotify_id', 'spotify_id');
     }
 }
 

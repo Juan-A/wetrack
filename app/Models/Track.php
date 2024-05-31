@@ -25,6 +25,10 @@ class Track extends Model
         'name',
         'description'
     ];
+    protected $primaryKey = 'spotify_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'spotify_id', 'spotify_id');
