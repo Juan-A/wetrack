@@ -55,8 +55,8 @@
                 <button class="btn">
                     Acceder
                 </button>
-                <div class="divider">O bien</div>
-                <button class="btn bg-spotify hover:bg-green-600" id="spotifyLogin">
+                <div class="divider dark:text-slate-300">O bien</div>
+                <button class="btn bg-spotify hover:bg-green-600 dark:text-black" id="spotifyLogin">
                     Acceder con Spotify
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
