@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tracks', function (Blueprint $table) {
             $table->string('spotify_id')->primary();
             $table->tinyText("name");
+            $table->json('json')->nullable();
             $table->text("description")->nullable();
             $table->timestamps();
         });
