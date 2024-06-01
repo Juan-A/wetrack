@@ -61,10 +61,10 @@
                                 </div>
                             </summary>
                             <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 dark:text-white">
-                                <li><a href="{{ url('/dashboard') }}" class="">Dashboard</a></li>
+                                <li><a href="{{ url('/dashboard') }}" class=" m-1">Dashboard</a></li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); this.closest('form').submit();"><a href="#">
+                                        onclick="event.preventDefault(); this.closest('form').submit();"><a href="#" class="m-1">
                                             @csrf
                                             Salir
                                         </a></form>
@@ -83,12 +83,12 @@
 
                             </div>
                             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">
-                                <li><a href="{{ route('login') }}" class="dark:text-white">
+                                <li><a href="{{ route('login') }}" class="dark:text-white m-1">
                                         Log in
                                     </a></li>
                                 <li>
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="dark:text-white">
+                                        <a href="{{ route('register') }}" class="dark:text-white m-1">
                                             Register
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -99,7 +99,7 @@
                                     @endif
                                 </li>
                                 <li><a href="{{ route('spotify.login') }}" onclick="toggleSptLoginAnim()"
-                                        class="dark:text-black bg-spotify hover:bg-green-600">
+                                        class="dark:text-black bg-spotify hover:bg-green-600 m-1">
                                         Spotify Login
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
