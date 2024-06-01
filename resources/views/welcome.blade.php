@@ -36,7 +36,7 @@
             </div>
         </header>
         <div id="trends"
-            class=" mt-24 pt-5 pb-5 mb-10 self-center bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-11/12">
+            class=" mt-24 pt-5 pb-5 mb-10 self-center bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-2/5">
             <div class="flex ml-9">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">

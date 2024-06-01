@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained();
-            $table->foreignId("spotify_id")->constrained('tracks')->cascadeOnDelete();
+            $table->foreignId("spotify_id")->constrained('tracks','spotify_id')->cascadeOnDelete();
             $table->string("review",500)->nullable();
             $table->decimal("calification",3,2)->nullable();
             $table->timestamps();
