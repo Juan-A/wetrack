@@ -25,11 +25,9 @@ class SpotifyController extends Controller
     }
     public function landingPage()
     {
-        $reviews = new ReviewController();
-        $reviews->topCommented();
-
+        $reviewsController = new ReviewController();
+        $reviews= $reviewsController->topCommented();
         
-        print_r($reviews);
         return view('welcome', [
             'trends' => $this->getGlobalTrends(),
             'topCommented' => $reviews,
@@ -131,6 +129,7 @@ class SpotifyController extends Controller
         }
         $query = urlencode($id);
         $url = "https://api.spotify.com/v1/tracks/$query";
+
         return json_decode(Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
             'Content-Type' => 'application/json',
