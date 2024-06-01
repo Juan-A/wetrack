@@ -25,9 +25,14 @@ class SpotifyController extends Controller
     }
     public function landingPage()
     {
+        $reviews = new ReviewController();
+        $reviews->topCommented();
 
+        
+        print_r($reviews);
         return view('welcome', [
             'trends' => $this->getGlobalTrends(),
+            'topCommented' => $reviews,
         ]);
     }
 
@@ -73,8 +78,9 @@ class SpotifyController extends Controller
 
         $tracks = [];
         $json = json_decode($songs, 1)['tracks']['items'];
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < config('spotify.trendsNumber'); $i++) {
             $tracks[$i]['image300'] = $json[$i]['track']['album']['images']['1']['url'];
+            $tracks[$i]['image64'] = $json[$i]['track']['album']['images']['2']['url'];
             $tracks[$i]['name'] = $json[$i]['track']['name'];
             $tracks[$i]['artists'] = $json[$i]['track']['artists'];
             $tracks[$i]['uri'] = $json[$i]['track']['external_urls']['spotify'];
