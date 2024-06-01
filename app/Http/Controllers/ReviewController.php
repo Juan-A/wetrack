@@ -58,6 +58,7 @@ class ReviewController extends Controller
                 $addTrack = [
                     'spotify_id' => $track['id'],
                     'name' => $track['name'],
+                    'json' => $track,
                     'description' => null,
                 ];
                 Track::create($addTrack);
@@ -75,11 +76,7 @@ class ReviewController extends Controller
     }
     public function topCommented()
     {
-        return Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews, calification')->with('track')
-            ->groupBy('spotify_id')
-            ->orderByDesc('number_of_reviews')
-            ->limit(5)
-            ->get();
+        return Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews, calification')->with('track')->groupBy('spotify_id')->orderByDesc('number_of_reviews')->limit(config('spotify.topCommentedNumber'))->get();
     }
     /**
      * Display the specified resource.
