@@ -23,7 +23,11 @@ class Track extends Model
     protected $fillable = [
         'spotify_id',
         'name',
+        'json',
         'description'
+    ];
+    protected $casts = [
+        'json' => 'array',
     ];
     protected $primaryKey = 'spotify_id';
     public $incrementing = false;
