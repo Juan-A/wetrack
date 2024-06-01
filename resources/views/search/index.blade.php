@@ -26,26 +26,27 @@
             <form action="{{ route('search.index') }}" method='GET' class=" w-1/2 rounded-lg"
                 onsubmit="toggleSearchAnimation();">
                 <label class="input input-bordered flex items-center gap-2">
-                    <input name="query" type="text" class="grow dark:text-white" placeholder="Search"
+                    <input name="query" type="text" class="grow dark:text-white" placeholder="Búsqueda"
                         @if ($searching) value=" {{ $query }} " @endif />
                     <a href="#"
+                        class="-ml-14 sm:-ml-0 sm:bg-transparent rounded-lg sm:rounded-none appearance-none"
                         onclick="event.preventDefault(); this.closest('form').submit(); toggleSearchAnimation();">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                            class="w-4 h-4 stroke-white">
+                            class="w-4 h-4 opacity-70 dark:fill-white">
                             <path fill-rule="evenodd"
                                 d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                                 clip-rule="evenodd" />
                         </svg>
                     </a>
-
                 </label>
             </form>
+
         </div>
         <div class="flex justify-center mt-4">
             <span id="loadingSearch" class="loading loading-dots loading-lg text-white hidden"></span>
         </div>
         @if ($searching)
-            <div class="w-2/3 rounded-lg bg-white bg-opacity-40 mt-10 self-center">
+            <div class="w-11/12 md:w-2/3 rounded-lg bg-white bg-opacity-40 mt-10 self-center">
                 <div class="flex flex-wrap justify-center">
                     @foreach ($results['albums']['items'] as $item)
                         <div class="p-2 m-2 bg-white rounded-lg basis-1/4 md:basis-1/6 flex flex-col">
@@ -117,8 +118,8 @@
                     <input type="hidden" name="page" value="{{ $page + 1 }}">
                     <button class="btn w-fit flex flex-wrap-reverse ml-1">
                         <span class="mb-1 sm:mb-0">Siguiente Página</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4 sm:size-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-4 sm:size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                         </svg>
