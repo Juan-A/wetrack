@@ -26,11 +26,14 @@ class SpotifyController extends Controller
     public function landingPage()
     {
         $reviewsController = new ReviewController();
-        $reviews= $reviewsController->topCommented();
+        $mostCommented= $reviewsController->topCommented();
+        $topRated = $reviewsController->topRated();
+
         
         return view('welcome', [
             'trends' => $this->getGlobalTrends(),
-            'topCommented' => $reviews,
+            'topCommented' => $mostCommented,
+            'topRated' => $topRated
         ]);
     }
 
@@ -82,6 +85,7 @@ class SpotifyController extends Controller
             $tracks[$i]['name'] = $json[$i]['track']['name'];
             $tracks[$i]['artists'] = $json[$i]['track']['artists'];
             $tracks[$i]['uri'] = $json[$i]['track']['external_urls']['spotify'];
+            $tracks[$i]['id'] = $json[$i]['track']['id'];
         }
         return $tracks;
     }

@@ -76,8 +76,17 @@ class ReviewController extends Controller
     }
     public function topCommented()
     {
-        return Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews, calification')->with('track')->groupBy('spotify_id')->orderByDesc('number_of_reviews')->limit(config('spotify.topCommentedNumber'))->get();
+        return Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews, AVG(calification) as average_rating')->with('track')->groupBy('spotify_id')->orderByDesc('number_of_reviews')->limit(config('spotify.topCommentedNumber'))->get();
     }
+    public function topRated()
+{
+    return Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews, AVG(calification) as average_rating')
+        ->with('track')
+        ->groupBy('spotify_id')
+        ->orderByDesc('average_rating')
+        ->limit(6)
+        ->get();
+}
     /**
      * Display the specified resource.
      */
