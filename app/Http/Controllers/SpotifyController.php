@@ -16,10 +16,11 @@ class SpotifyController extends Controller
 {
     private $clientId;
     private $clientSecret;
-    private $redirectUri = 'http://localhost:8000/spotifyAuthorize';
+    private $redirectUri;
 
     public function __construct()
     {
+        $this->redirectUri = config('app.url').'/spotifyAuthorize';
         $this->clientId = config('spotify.clientId');
         $this->clientSecret = config('spotify.clientSecret');
     }
