@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb3b20c2a101b896748f0ac3caf59f53",
+    "content-hash": "dfe49ad23b1139475dd6609102348080",
     "packages": [
         {
             "name": "brick/math",
@@ -3246,6 +3246,81 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "scify/laravel-cookies-consent",
+            "version": "v1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scify/laravel-cookies-consent.git",
+                "reference": "fe97c7956c463835d29ecbc5a9f40a9f9550c1df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scify/laravel-cookies-consent/zipball/fe97c7956c463835d29ecbc5a9f40a9f9550c1df",
+                "reference": "fe97c7956c463835d29ecbc5a9f40a9f9550c1df",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7|^8"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.6",
+                "nunomaduro/collision": "^7.0",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-laravel": "^v2.2",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^10.4",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SciFY\\LaravelCookiesConsent\\LaravelCookiesConsentServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelCookiesConsent": "SciFY\\LaravelCookiesConsent\\Facades\\LaravelCookiesConsent"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SciFY\\LaravelCookiesConsent\\": "src",
+                    "SciFY\\LaravelCookiesConsent\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Isaris",
+                    "email": "paulisaris@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel package that provides a Cookies consent floating window and publishes the Cookies for the different consent categories",
+            "homepage": "https://github.com/scify/laravel-cookies-consent",
+            "keywords": [
+                "cookies",
+                "gdpr",
+                "laravel",
+                "laravel cookies",
+                "laravel gdpr",
+                "laravel-cookies-consent",
+                "scify"
+            ],
+            "support": {
+                "issues": "https://github.com/scify/laravel-cookies-consent/issues",
+                "source": "https://github.com/scify/laravel-cookies-consent/tree/v1.1.3"
+            },
+            "time": "2023-10-26T11:49:24+00:00"
         },
         {
             "name": "symfony/clock",

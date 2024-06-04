@@ -19,5 +19,8 @@ class DashController extends Controller
             'reviews' => $revController->getUserReviews()
         ]);
     }
+    public function about(){
+        return view('about');
+    }
 
 }

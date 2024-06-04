@@ -235,6 +235,7 @@
     </div>
     </div>
     <script></script>
+    @include('layouts.footer')
 </body>
 
 </html>

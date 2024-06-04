@@ -1,4 +1,5 @@
 <header>
+    <x-laravel-cookies-consent></x-laravel-cookies-consent>
     <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css">
     <!--Header Nav-->
@@ -6,18 +7,19 @@
 
         <div id="pre-logo" class="w-1/4 flex items-center">
 
-            <details class="dropdown ml-20">
+            <details class="dropdown ml-20 md:hidden">
+                <!-- Added 'md:hidden' class to hide on medium and larger screens -->
                 <summary class="m-1 btn btn-circle btn-outline"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg></summary>
-                <ul class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-72">
-                    <li>
-                        <form action="{{ route('search.index') }}" method='GET' class=" w-full rounded-lg">
-                            <label class="input input-bordered flex items-center gap-2">
+                <ul class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-80">
+                    <li class="w-full">
+                        <form action="{{ route('search.index') }}" method='GET' class="flex w-full rounded-lg">
+                            <label class="input input-bordered flex items-center gap-2 flex-grow">
                                 <input name="query" type="text" class="w-full dark:text-white"
-                                    placeholder="Search" />
+                                    placeholder="Busca tus canciones aquí..." />
                                 <a href="#"
                                     onclick="event.preventDefault(); this.closest('form').submit(); toggleSearchAnimation();">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -32,6 +34,23 @@
                     </li>
                 </ul>
             </details>
+
+            <form action="{{ route('search.index') }}" method='GET' class="hidden md:flex w-full rounded-lg ml-20">
+                <!-- Added 'hidden md:flex' classes to hide on small screens and show on medium and larger screens -->
+                <label class="input input-bordered flex items-center gap-2 flex-grow">
+                    <input name="query" type="text" class="w-full dark:text-white"
+                        placeholder="Busca tus canciones aquí..." />
+                    <a href="#"
+                        onclick="event.preventDefault(); this.closest('form').submit(); toggleSearchAnimation();">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                            class="w-4 h-4 stroke-white">
+                            <path fill-rule="evenodd"
+                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </label>
+            </form>
 
         </div>
         <div id="logo" class="w-1/2 flex justify-center">
@@ -62,6 +81,8 @@
                             </summary>
                             <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 dark:text-white">
                                 <li><a href="{{ url('/dashboard') }}" class=" m-1">Dashboard</a></li>
+                                <li><a href="{{ url('/profile') }}" class=" m-1">Tu Perfil</a></li>
+
                                 <li><a href="{{ route('myreviews') }}" class=" m-1">Mis reviews</a></li>
 
                                 <li>
@@ -77,11 +98,10 @@
                     @else
                         <div class="dropdown dropdown-end mr-20 mt-2">
                             <div tabindex="0" role="button" class="btn m-1 btn-circle btn-md btn-outline ">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                  </svg>
+                                  
 
                             </div>
                             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 ">

@@ -103,7 +103,7 @@
             </div>
 
             <div id="topRated"
-                class="pt-5 pb-5 mb-10 self-center bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4">
+                class="pt-5 pb-5 mb-10 bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4">
                 <div class="flex ml-9">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
@@ -139,5 +139,6 @@
         </div>
     </div>
 </body>
+@include('layouts.footer')
 
 </html>
