@@ -35,9 +35,9 @@
                 </span>
             </div>
         </header>
-        <div class="flex justify-around flex-wrap align-top">
+        <div class="flex justify-around flex-wrap items-start mt-20">
             <div id="trends"
-                class="mt-5 pt-5 pb-5 mb-10 bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4">
+                class="pt-5 pb-5 mb-10 bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4 h-full">
                 <div class="flex ml-9">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
@@ -46,7 +46,7 @@
                     </svg>
                     <span class="text-xl ml-1 font-bold"> Últimas tendencias</span>
                 </div>
-                <div class="flex justify-around flex-wrap w-11/12 lg:w-11/12 self-center">
+                <div class="flex justify-around flex-wrap w-11/12 lg:w-11/12 self-center h-full">
                     <!--Tracks top-->
                     @foreach ($trends as $track)
                         <a href="{{ route('track.show', $track['id']) }}"
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div id="topCommented"
-                class=" mt-5 pt-5 pb-5 mb-10 self-center bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4">
+                class="pt-5 pb-5 mb-10 bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4">
                 <div class="flex ml-9">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
@@ -102,8 +102,8 @@
                 </div>
             </div>
 
-            <div id="topCommented"
-                class=" mt-5 pt-5 pb-5 mb-10 self-center bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4">
+            <div id="topRated"
+                class="pt-5 pb-5 mb-10 self-center bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4">
                 <div class="flex ml-9">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">

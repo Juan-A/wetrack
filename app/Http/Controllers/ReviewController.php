@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use App\Models\Track;
 use App\Models\User;
-
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -40,7 +40,7 @@ class ReviewController extends Controller
             'spotify_id' => $request->route('track'),
         ]);
         $validated = $request->validate([
-            'calification' => ['lte:5.0', 'gte:0.0', 'nullable'],
+            'calification' => ['lte:5.0', 'gte:0.5'],
             'review' => ['max:500', 'nullable'],
             'spotify_id' => [],
         ]);
@@ -79,14 +79,36 @@ class ReviewController extends Controller
         return Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews, AVG(calification) as average_rating')->with('track')->groupBy('spotify_id')->orderByDesc('number_of_reviews')->limit(config('spotify.topCommentedNumber'))->get();
     }
     public function topRated()
-{
-    return Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews, AVG(calification) as average_rating')
-        ->with('track')
-        ->groupBy('spotify_id')
-        ->orderByDesc('average_rating')
-        ->limit(6)
-        ->get();
-}
+    {
+        return Review::selectRaw('spotify_id, COUNT(id) as number_of_reviews, AVG(calification) as average_rating')
+            ->with('track')
+            ->groupBy('spotify_id')
+            ->orderByDesc('average_rating')
+            ->limit(config('spotify.topRatedMax'))
+            ->get();
+    }
+    public function getUserReviews()
+    {
+        $userId = Auth::id();
+        $reviewsPerPage = 3;
+
+        return Review::with('track')->where('user_id', $userId)->orderBy('updated_at', 'desc')->paginate($reviewsPerPage);
+    }
+
+    public function countUserReviews()
+    {
+        $userId = Auth::id();
+
+        return Review::where('user_id', $userId)->count();
+    }
+    public function averageUserRating()
+    {
+        $userId = Auth::id();
+
+        $averageRating = Review::where('user_id', $userId)->avg('calification');
+
+        return round($averageRating, 2);
+    }
     /**
      * Display the specified resource.
      */
@@ -114,8 +136,10 @@ class ReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $review)
+    public function destroy(Review $review, User $user):RedirectResponse
     {
-        //
+        Gate::authorize('delete',$review);
+        $review->delete();
+        return redirect(route('myreviews'));
     }
 }

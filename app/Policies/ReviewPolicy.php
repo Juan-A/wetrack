@@ -45,7 +45,7 @@ class ReviewPolicy
      */
     public function delete(User $user, Review $review): bool
     {
-        //
+        return $review->user()->is($user);
     }
 
     /**

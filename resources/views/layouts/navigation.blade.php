@@ -62,6 +62,8 @@
                             </summary>
                             <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 dark:text-white">
                                 <li><a href="{{ url('/dashboard') }}" class=" m-1">Dashboard</a></li>
+                                <li><a href="{{ route('myreviews') }}" class=" m-1">Mis reviews</a></li>
+
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}"
                                         onclick="event.preventDefault(); this.closest('form').submit();"><a href="#" class="m-1">
