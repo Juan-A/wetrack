@@ -40,10 +40,10 @@
                                 <div class="ml-auto flex items-center">
 
                                 </div>
-                                <form action="{{ route('review.delete', $review) }}" method="POST">
-                                    @method('delete')
+                                <form action="{{ route('review.delete', $review) }}" method="POST" class="p-6">
                                     @csrf
-                                    <button class="btn btn-circle btn-outline btn-md mr-4">
+                                    @method('delete')
+                                    <button class="btn btn-circle btn-outline btn-md mr-4" onclick="confirmAction(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -63,4 +63,16 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmAction(button) {
+            var confirmation = confirm("¿Estás seguro de que deseas eliminar la reseña?");
+
+            if (confirmation) {
+                var form = button.closest("form");
+                form.submit();
+            } else {
+
+            }
+        }
+    </script>
 </x-app-layout>

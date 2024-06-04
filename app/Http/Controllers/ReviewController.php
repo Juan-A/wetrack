@@ -140,6 +140,6 @@ class ReviewController extends Controller
     {
         Gate::authorize('delete',$review);
         $review->delete();
-        return redirect(route('myreviews'));
+        return redirect()->back();
     }
 }
