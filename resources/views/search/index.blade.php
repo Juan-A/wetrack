@@ -20,7 +20,7 @@
 
 <body class="font-sans antialiased  dark:text-slate-700 h-dvh">
     <div
-        class="bg-gradient-to-b from-slate-50 via-amber-300 to-red-400 dark:from-slate-700 dark:via-amber-700 dark:to-red-700 min-h-full flex flex-col">
+        class="bg-gradient-to-b from-slate-50 via-amber-300 to-red-400 dark:from-slate-900 dark:via-amber-800 dark:to-red-900 min-h-full flex flex-col pb-5">
         @include('layouts.navigation')
         <div class="w-full flex justify-center mt-10" id="searchContainer">
             <form action="{{ route('search.index') }}" method='GET' class=" w-1/2 rounded-lg"
