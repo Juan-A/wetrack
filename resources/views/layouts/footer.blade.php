@@ -1,6 +1,6 @@
 <footer class="footer p-10 bg-base-200 text-base-content">
     <aside>
-        <x-application-logo />
+      <a href="{{ route('landingPage') }}"><x-application-logo /></a>
       <p>The WeTrack App.<br>Compartiendo tu opinión sobre lo que escuchas desde 2024.</p>
     </aside> 
     <nav>
