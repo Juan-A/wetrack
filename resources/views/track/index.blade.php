@@ -64,7 +64,7 @@
                 </span>
                 <div class="flex items-center">
                     <div class="rating rating-lg rating-half">
-                        <input type="radio" value="null" name="calification" class="rating-hidden " checked/>
+                        <input type="radio" value="null" name="final-rating" class="rating-hidden " checked/>
                         @for ($i = 1; $i <= 10; $i++)
                             <input type="radio" name="final-rating"
                                 class="bg-green-500 mask mask-star-2 {{ $i % 2 == 0 ? 'mask-half-2' : 'mask-half-1' }}"
