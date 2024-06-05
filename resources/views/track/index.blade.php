@@ -181,7 +181,7 @@
                         class="textarea textarea-bordered textarea-lg w-11/12 m-5 dark:text-slate-200"></textarea>
                 @endcan
 
-                <button class="btn glass rounded-box">Publicar</button>
+                <button class="btn glass rounded-t-none rounded-lg">Publicar</button>
             </form>
 
         </div>
