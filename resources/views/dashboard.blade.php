@@ -12,9 +12,8 @@
 
                     <h2 class="text-3xl font-bold">¡Hola {{ Auth::user()->name }}! ¡Bienvenido a tu panel de usuario!
                     </h2>
-
-                    <div class="stats shadow mt-3 grid-cols-2">
-
+<!--grid-cols-2 gap-4-->
+                    <div class="stats shadow mt-3  stats-vertical md:stats-horizontal">
                         <div class="stat">
                             <div class="stat-figure text-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -27,7 +26,7 @@
                             <div class="stat-value">{{ $reviewsNumber }}</div>
                             <div class="stat-desc">desde tu registro</div>
                         </div>
-
+                    
                         <div class="stat">
                             <div class="stat-figure text-secondary">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -43,7 +42,7 @@
                             <div class="stat-desc">La nota media de tus calificaciones</div>
                         </div>
                     </div>
-
+                    
                     <a href="{{ route('myreviews') }}" class="btn w-fit self-center mt-4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
