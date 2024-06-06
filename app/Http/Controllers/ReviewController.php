@@ -43,6 +43,9 @@ class ReviewController extends Controller
             'calification' => ['lte:5.0', 'gte:0.5'],
             'review' => ['max:500', 'nullable'],
             'spotify_id' => [],
+        ],[
+            'calification.gte' => 'La calificación debe ser superior a 0.',
+            'review.max' => 'La review puede tener como máximo 500 caracteres.'
         ]);
         if (Review::where('user_id', Auth::id())->where('spotify_id', $validated['spotify_id'])->exists()) {
             $old = Review::where('user_id', Auth::id())->where('spotify_id', $validated['spotify_id'])->first();

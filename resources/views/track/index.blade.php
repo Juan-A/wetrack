@@ -64,7 +64,7 @@
                 </span>
                 <div class="flex items-center">
                     <div class="rating rating-lg rating-half">
-                        <input type="radio" value="null" name="final-rating" class="rating-hidden " checked/>
+                        <input type="radio" value="null" name="final-rating" class="rating-hidden " checked />
                         @for ($i = 1; $i <= 10; $i++)
                             <input type="radio" name="final-rating"
                                 class="bg-green-500 mask mask-star-2 {{ $i % 2 == 0 ? 'mask-half-2' : 'mask-half-1' }}"
@@ -115,7 +115,7 @@
                 @can('update', $usrReview)
                     <div class="flex flex-wrap items-center ml-5 mt-5 mr-10">
                         <div class="rating rating-lg rating-half">
-                            <input type="radio" value="null" name="calification" class="rating-hidden "
+                            <input type="radio" value="0.0" name="calification" class="rating-hidden "
                                 {{ $usrReview['calification'] == null ? 'checked' : '' }} />
                             <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-1  "
                                 value="0.5" name="calification"
@@ -150,8 +150,10 @@
                         </div>
 
                     </div>
+                    <x-input-error :messages="$errors->get('calification')" class="mt-2 mb-4 font-bold ml-5" />
                     <textarea name="review" placeholder="Da la nota!"
                         class="textarea textarea-bordered textarea-lg w-11/12 m-5 dark:text-slate-200">{{ $usrReview->review }}</textarea>
+                    <x-input-error :messages="$errors->get('review')" class="-mt-4 mb-4 font-bold ml-5" />
                 @else
                     <div class="rating rating-md rating-half ml-5 mt-5 mr-10">
                         <input type="radio" value="0.0" name="calification" class="rating-hidden" checked />
@@ -176,9 +178,10 @@
                         <input type="radio" value="5" name="calification"
                             class="bg-green-500 mask mask-star-2 mask-half-2" />
                     </div>
-                    <x-input-error :messages="$errors->get('calification')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('calification')" class="mt-2 mb-4 font-bold ml-5" />
                     <textarea name="review" placeholder="El saber es poder!"
-                        class="textarea textarea-bordered textarea-lg w-11/12 m-5 dark:text-slate-200"></textarea>
+                        class="textarea textarea-bordered textarea-lg w-11/12 m-5 dark:text-slate-200">{{ old('review') }}</textarea>
+                    <x-input-error :messages="$errors->get('review')" class="-mt-4 mb-4 font-bold ml-5" />
                 @endcan
 
                 <button class="btn glass rounded-t-none rounded-lg">Publicar</button>
@@ -215,31 +218,33 @@
 
                                 <span class="ml-1">{{ $review['user']['name'] }}</span>
                                 @can('delete', $review)
-                                        <button class="btn btn-circle btn-outline btn-sm mr-4 ml-5" x-data=""
-                                        x-on:click.prevent="$dispatch('open-modal', 'confirm-review-deletion')">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                            </svg>
-                                        </button>
-                                        <x-modal name="confirm-review-deletion" focusable>
-                                            <form action="{{ route('review.delete', $review) }}" method="POST" class="p-6">
+                                    <label for="delete_modal" class="btn btn-circle btn-outline btn-sm mr-4 ml-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                        </svg>
+                                    </label>
+
+                                    <input type="checkbox" id="delete_modal" class="modal-toggle" />
+                                    <div class="modal modal-bottom sm:modal-middle" role="dialog">
+                                        <div class="modal-box">
+                                            <form action="{{ route('review.delete', $review) }}" method="POST"
+                                                class="p-6">
                                                 @csrf
                                                 @method('delete')
-                                    
+
                                                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                                                     {{ __('¿Seguro que quieres eliminar tu reseña?') }}
                                                 </h2>
-                                    
+
                                                 <div class="mt-6 flex justify-end">
-                                                    <button x-on:click.prevent="$dispatch('close')" onclick="event.preventDefault()"
-                                                        class="btn btn-active btn-ghost dark:text-white">CANCELAR</button>
-                                    
+                                                    <label for="delete_modal" class="btn">CANCELAR</label>
                                                     <button class="btn btn-error ml-4">ELIMINAR RESEÑA</button>
                                                 </div>
                                             </form>
-                                        </x-modal>
+                                        </div>
+                                    </div>
                                 @endcan
                             </div>
                             {{ $review['review'] }}
