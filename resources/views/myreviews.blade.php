@@ -28,15 +28,19 @@
                                                         @endforeach
                                                     </ul>
                                                 </span>
+                                                <div class="rating rating-sm rating-half">
+                                                    @for ($i = 1; $i <= 10; $i++)
+                                                        <input type="radio" name="rating-{{ $review->id }}"
+                                                            class="bg-green-500 mask mask-star-2 {{ $i % 2 == 0 ? 'mask-half-2' : 'mask-half-1' }}"
+                                                            {{ $i <= $review->calification * 2 ? 'checked' : '' }}
+                                                            disabled />
+                                                    @endfor
+                                                </div><br>
+                                                <span>
+                                                    {{ $review->review }}
+                                                </span>
                                             </span>
-                                            <div class="rating rating-sm rating-half">
-                                                @for ($i = 1; $i <= 10; $i++)
-                                                    <input type="radio" name="rating-{{ $review->id }}"
-                                                        class="bg-green-500 mask mask-star-2 {{ $i % 2 == 0 ? 'mask-half-2' : 'mask-half-1' }}"
-                                                        {{ $i <= $review->calification * 2 ? 'checked' : '' }}
-                                                        disabled />
-                                                @endfor
-                                            </div>
+                                            
                                         </div>
                                         <div class="ml-auto flex items-center">
 
