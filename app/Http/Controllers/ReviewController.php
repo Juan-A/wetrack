@@ -93,7 +93,7 @@ class ReviewController extends Controller
     public function getUserReviews()
     {
         $userId = Auth::id();
-        $reviewsPerPage = 3;
+        $reviewsPerPage = config('spotify.perPageMy');
 
         return Review::with('track')->where('user_id', $userId)->orderBy('updated_at', 'desc')->paginate($reviewsPerPage);
     }
