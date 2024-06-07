@@ -92,35 +92,61 @@ class SpotifyController extends Controller
     }
     public function search($query, $isAuth, $page)
 {
-    // Número de resultados por página desde la configuración
+
     $perPage = config('spotify.resultsPerPage');
 
-    // Calcula el offset basado en la página actual
     $offset = ($page - 1) * $perPage;
-    // Verifica si el usuario está autenticado y tiene un token de Spotify
+
     if ($isAuth && SpotifyToken::where('user', Auth::id())->exists()) {
         $user = $this->refreshToken();
         $spotify = $user->spotify;
         $token = $spotify->authToken;
     } else {
-        // Obtén el token público si el usuario no está autenticado
+
         $token = $this->getPubToken();
     }
     
-    // Codifica la consulta de búsqueda
+
     $query = urlencode($query);
     
-    // Construye la URL de solicitud con los parámetros limit y offset
+
     $url = "https://api.spotify.com/v1/search?q=$query&type=album%2Ctrack&limit=$perPage&offset=$offset";
     
-    // Realiza la solicitud a la API de Spotify
+
     $results = Http::withHeaders([
         'Authorization' => 'Bearer ' . $token,
         'Content-Type' => 'application/json',
         'Accept' => 'application/json'
     ])->get($url);
     
-    // Devuelve los resultados decodificados como un array
+
+    return json_decode($results, true);
+}
+public function liveSearch($query, $isAuth, $numResults)
+{
+
+    if ($isAuth && SpotifyToken::where('user', Auth::id())->exists()) {
+        $user = $this->refreshToken();
+        $spotify = $user->spotify;
+        $token = $spotify->authToken;
+    } else {
+        $token = $this->getPubToken();
+    }
+    
+
+    $query = urlencode($query);
+    
+
+    $url = "https://api.spotify.com/v1/search?q=$query&type=track&limit=$numResults";
+    
+
+    $results = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $token,
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json'
+    ])->get($url);
+    
+
     return json_decode($results, true);
 }
     public function getTrack($id, $isAuth)
