@@ -62,9 +62,8 @@ const handleInput = async (event) => {
     });
 
     // Button to submit the form
-    const button = document.createElement('button');
+    const button = document.createElement('li');
     button.classList.add('btn', 'w-full');
-    button.type = 'submit';
     button.textContent = 'Buscar más...';
     searchResults.appendChild(button.cloneNode(true));
     mobileResults.appendChild(button.cloneNode(true));
