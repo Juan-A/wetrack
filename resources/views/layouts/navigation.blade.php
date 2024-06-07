@@ -54,9 +54,7 @@
                     </a>
                 </label>
                 
-                <!-- Contenedor para los resultados de búsqueda -->
                 <div id="searchResultsContainer" class="absolute bg-white dark:bg-gray-800 shadow-lg rounded-lg hidden h-fit overflow-y-auto z-20 mt-12 w-80 p-2">
-                    <!-- Aquí se mostrarán los resultados de búsqueda -->
                     
                 </div>
             </form>
