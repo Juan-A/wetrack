@@ -35,7 +35,7 @@
                 </span>
             </div>
         </header>
-        <div class="flex justify-around flex-wrap items-start mt-20">
+        <div class="flex justify-around flex-wrap items-start mt-20 ">
             <div id="trends"
                 class="pt-5 pb-5 mb-10 bg-opacity-25 bg-slate-200 rounded-xl flex flex-col flex-wrap w-11/12 lg:w-1/4 h-full">
                 <div class="flex ml-9">

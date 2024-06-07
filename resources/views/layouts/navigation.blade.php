@@ -40,23 +40,24 @@
                 </ul>
             </details>
 
-            <form action="{{ route('search.index') }}" method='GET' class="hidden md:flex w-full rounded-lg ml-20">
+            <form action="{{ route('search.index') }}" method='GET' class="hidden md:flex w-full rounded-lg ml-20 relative">
                 <!-- Added 'hidden md:flex' classes to hide on small screens and show on medium and larger screens -->
-                <label class="input input-bordered flex items-center gap-2 flex-grow">
-                    <input name="query" type="text" class="w-full dark:text-white"
-                        placeholder="Busca tus canciones aquí..." />
-                    <a href="#"
-                        onclick="event.preventDefault(); this.closest('form').submit(); toggleSearchAnimation();">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                            class="w-4 h-4 stroke-white">
-                            <path fill-rule="evenodd"
-                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                clip-rule="evenodd" />
+                
+                <label class="input input-bordered flex items-center gap-2 flex-grow relative">
+                    <input name="query" type="text" class="w-full dark:text-white" placeholder="Busca tus canciones aquí..." id="desktopSearchInput"/>
+                    <a href="#" onclick="event.preventDefault(); this.closest('form').submit(); toggleSearchAnimation();">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 stroke-white">
+                            <path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" />
                         </svg>
                     </a>
                 </label>
+                
+                <!-- Contenedor para los resultados de búsqueda -->
+                <div id="searchResultsContainer" class="absolute bg-white dark:bg-gray-800 shadow-lg rounded-lg hidden h-fit overflow-y-auto z-20 mt-12 w-80 p-2">
+                    <!-- Aquí se mostrarán los resultados de búsqueda -->
+                    
+                </div>
             </form>
-
         </div>
         <div id="logo" class="w-1/2 flex justify-center">
             <a href="{{ route('landingPage') }}"><x-application-logo /></a>
