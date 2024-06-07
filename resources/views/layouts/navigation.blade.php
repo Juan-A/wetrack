@@ -2,6 +2,7 @@
     <x-laravel-cookies-consent></x-laravel-cookies-consent>
     <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css">
+    <script defer src="{{ asset('scripts/liveSearch.js') }}"></script>
     <!--Header Nav-->
     <div class="flex justify-between">
 
@@ -18,8 +19,8 @@
                     <li class="w-full">
                         <form action="{{ route('search.index') }}" method='GET' class="flex w-full rounded-lg">
                             <label class="input input-bordered flex items-center gap-2 flex-grow">
-                                <input name="query" type="text" class="w-full dark:text-white"
-                                    placeholder="Busca tus canciones aquí..." />
+                                <input id="headerSearchInput" name="query" type="text"
+                                    class="w-full dark:text-white" placeholder="Busca tus canciones aquí..." />
                                 <a href="#"
                                     onclick="event.preventDefault(); this.closest('form').submit(); toggleSearchAnimation();">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -32,6 +33,10 @@
                             </label>
                         </form>
                     </li>
+                    <li id="liveSearch">
+
+                    </li>
+
                 </ul>
             </details>
 
@@ -86,7 +91,8 @@
 
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); this.closest('form').submit();"><a href="#" class="m-1">
+                                        onclick="event.preventDefault(); this.closest('form').submit();"><a href="#"
+                                            class="m-1">
                                             @csrf
                                             Salir
                                         </a></form>
@@ -96,12 +102,16 @@
                         </details>
                     @else
                         <div class="dropdown dropdown-end mr-20 mt-2">
-                            <div tabindex="0" role="button" class="btn m-1 btn-circle btn-md btn-outline " onclick="toggleDropdown()">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                                  </svg>
+                            <div tabindex="0" role="button" class="btn m-1 btn-circle btn-md btn-outline "
+                                onclick="toggleDropdown()">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                </svg>
                             </div>
-                            <ul id="dropdown-1" tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 hidden">
+                            <ul id="dropdown-1" tabindex="0"
+                                class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 hidden">
                                 <li><a href="{{ route('login') }}" class="dark:text-white m-1">
                                         Log in
                                     </a></li>
@@ -130,7 +140,7 @@
                                     </a></li>
                                 <li>
                             </ul>
-                            
+
                         </div>
 
 
@@ -144,7 +154,8 @@
         function toggleSptLoginAnim() {
             document.querySelector("#spotifyLogin").classList.toggle('hidden')
         }
-        function toggleDropdown(){
+
+        function toggleDropdown() {
             document.querySelector('#dropdown-1').classList.toggle('hidden')
         }
     </script>

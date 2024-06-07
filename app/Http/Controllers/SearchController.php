@@ -38,4 +38,22 @@ class SearchController extends Controller
 
         ]); 
     }
+    public function liveSearch(Request $request){
+        $query = "";
+        $results = null;
+
+        if ($request->input('query')) {
+            $query = $request->input('query');
+            $searching = true;
+            if (Auth()->check()) {
+                $spotifyController = new SpotifyController();
+                $results = $spotifyController->liveSearch($query, true, 4);
+            } else {
+                $spotifyController = new SpotifyController();
+                $results = $spotifyController->liveSearch($query, false, 4);
+            }
+        }
+
+        return $results;
+    }
 }

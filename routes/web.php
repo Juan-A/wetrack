@@ -28,6 +28,7 @@ Route::get('spotifyAuthorize', [SpotifyController::class, 'authorize'])->name('s
 
 //Search
 Route::get('search',[SearchController::class,'index'])->name('search.index');
+Route::get('/api/liveSearch',[SearchController::class,'liveSearch'])->name('search.live');
 
 Route::get('track/{track}',[TrackController::class,'show'])->name('track.show');
 Route::post('track/{track}/addReview',[ReviewController::class,'store'])->name('track.addreview')->middleware(['auth']);
