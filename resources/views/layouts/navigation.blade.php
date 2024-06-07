@@ -33,14 +33,16 @@
                             </label>
                         </form>
                     </li>
+                    <form action="{{ route('search.index') }}" method='GET'>
+                        <input type="hidden" id="shadowInput" name="query">
                     <li id="liveSearch">
 
                     </li>
-
+                    </form>
                 </ul>
             </details>
 
-            <form action="{{ route('search.index') }}" method='GET' class="hidden md:flex w-full rounded-lg ml-20 relative">
+            <form action="{{ route('search.index') }}" method='GET' class="hidden md:flex w-full rounded-lg ml-20 relative" id="mainForm">
                 <!-- Added 'hidden md:flex' classes to hide on small screens and show on medium and larger screens -->
                 
                 <label class="input input-bordered flex items-center gap-2 flex-grow relative">

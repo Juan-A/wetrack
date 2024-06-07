@@ -3,6 +3,7 @@ const desktopInput = document.querySelector('#desktopSearchInput');
 const mobileInput = document.querySelector('#headerSearchInput');
 const searchResults = document.querySelector('#searchResultsContainer');
 const mobileResults = document.querySelector('#liveSearch');
+const shadowInput = document.querySelector('#shadowInput');
 
 // On focus show the search results
 // If the input is not empty
@@ -23,6 +24,7 @@ const handleInput = async (event) => {
   } else {
     desktopInput.value = query;
   }
+  shadowInput.value = query;
 
   if (timeout) {
     clearTimeout(timeout);
@@ -62,11 +64,12 @@ const handleInput = async (event) => {
     });
 
     // Button to submit the form
-    const button = document.createElement('li');
-    button.classList.add('btn', 'w-full');
-    button.textContent = 'Buscar más...';
-    searchResults.appendChild(button.cloneNode(true));
-    mobileResults.appendChild(button.cloneNode(true));
+const button = document.createElement('button');
+button.classList.add('btn', 'w-full');
+button.textContent = 'Buscar más...';
+
+searchResults.appendChild(button.cloneNode(true));
+mobileResults.appendChild(button.cloneNode(true));
   }, 1000); // 1000 ms = 1 second
 };
 
