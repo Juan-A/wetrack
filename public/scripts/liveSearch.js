@@ -6,20 +6,23 @@ const mobileResults = document.querySelector('#liveSearch');
 
 // On focus show the search results
 // If the input is not empty
-desktopInput.addEventListener('focus', async () => {
+desktopInput.addEventListener('focus', () => {
   if (desktopInput.value.trim() !== '') {
     searchResults.classList.remove('hidden');
   }
 });
 
-const searchInput = document.getElementById('desktopSearchInput');
 let timeout = null;
 
-searchInput.addEventListener('input', async (event) => {
+const handleInput = async (event) => {
   const query = event.target.value.trim();
 
-  // Update the value of the mobile input
-  mobileInput.value = query;
+  // Update the value of the other input
+  if (event.target === desktopInput) {
+    mobileInput.value = query;
+  } else {
+    desktopInput.value = query;
+  }
 
   if (timeout) {
     clearTimeout(timeout);
@@ -39,6 +42,7 @@ searchInput.addEventListener('input', async (event) => {
 
     searchResults.innerHTML = '';
     mobileResults.innerHTML = '';
+
     results.tracks.items.forEach(track => {
       const trackElement = document.createElement('a');
       trackElement.classList.add('flex', 'items-center', 'p-2', 'hover:bg-base-200', 'track', 'basis-full', 'w-full', 'dark:text-white', 'rounded-md');
@@ -61,26 +65,18 @@ searchInput.addEventListener('input', async (event) => {
     const button = document.createElement('button');
     button.classList.add('btn', 'w-full');
     button.type = 'submit';
-    // Add the text button
     button.textContent = 'Buscar más...';
     searchResults.appendChild(button.cloneNode(true));
     mobileResults.appendChild(button.cloneNode(true));
-  }, 1000); // 2000 ms = 2 seconds
-});
+  }, 1000); // 1000 ms = 1 second
+};
+
+desktopInput.addEventListener('input', handleInput);
+mobileInput.addEventListener('input', handleInput);
 
 // Hide search results when clicking outside of them or the input
 document.addEventListener('click', (event) => {
   if (!searchResults.contains(event.target) && event.target !== desktopInput) {
     searchResults.classList.add('hidden');
   }
-});
-
-// Sync mobile input with desktop input
-mobileInput.addEventListener('input', (event) => {
-  desktopInput.value = event.target.value;
-});
-
-// Sync desktop input with mobile input
-desktopInput.addEventListener('input', (event) => {
-  mobileInput.value = event.target.value;
 });
