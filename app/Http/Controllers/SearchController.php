@@ -44,7 +44,6 @@ class SearchController extends Controller
 
         if ($request->input('query')) {
             $query = $request->input('query');
-            $searching = true;
             if (Auth()->check()) {
                 $spotifyController = new SpotifyController();
                 $results = $spotifyController->liveSearch($query, true, config('spotify.liveSearchResults'));
