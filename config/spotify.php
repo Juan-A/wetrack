@@ -10,4 +10,5 @@ return [
     'topCommentedNumber' => env("TOP_COMMENTED_NUMBER"),
     'topRatedMax' => env('TOP_RATED_MAX_NUMBER'),
     'perPageMy' => env('PER_PAGE_MYREVIEWS'),
+    'liveSearchResults' => env('LIVE_SEARCH_RESULTS')
 ];
