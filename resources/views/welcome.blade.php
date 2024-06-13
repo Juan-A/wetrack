@@ -77,7 +77,7 @@
                     </svg>
                     <span class="text-xl ml-1 font-bold"> Más comentadas</span>
                 </div>
-                <div class="flex justify-around flex-wrap w-11/12 lg:w-11/12 self-center">
+                <div class="flex justify-around flex-wrap w-11/12 lg:w-11/12">
                     <!--Tracks most commented-->
                     @foreach ($topCommented as $reviewed)
                         <a href="{{ route('track.show', $reviewed->track->spotify_id) }}"

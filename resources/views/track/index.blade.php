@@ -108,13 +108,14 @@
                         d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
                 </svg>
             </h2>
-            <form method="POST" class="flex flex-col" action="{{ route('track.addreview', $track['id']) }}">
+            <form method="POST" class="flex flex-col" action="{{ route('track.addreview', $track['id']) }}"
+                id="publishForm">
                 @csrf
                 <input type="hidden" value="{{ $track['id'] }}" name="id">
 
                 @can('update', $usrReview)
                     <div class="flex flex-wrap items-center ml-5 mt-5 mr-10">
-                        <div class="rating rating-lg rating-half">
+                        <div class="rating rating-lg md:rating-md rating-half">
                             <input type="radio" value="0.0" name="calification" class="rating-hidden "
                                 {{ $usrReview['calification'] == null ? 'checked' : '' }} />
                             <input type="radio" name="calification" class="bg-green-500 mask mask-star-2 mask-half-1  "
@@ -155,7 +156,7 @@
                         class="textarea textarea-bordered textarea-lg w-11/12 m-5 dark:text-slate-200">{{ $usrReview->review }}</textarea>
                     <x-input-error :messages="$errors->get('review')" class="-mt-4 mb-4 font-bold ml-5" />
                 @else
-                    <div class="rating rating-md rating-half ml-5 mt-5 mr-10">
+                    <div class="rating rating-lg md:rating-md rating-half ml-5 mt-5 mr-10">
                         <input type="radio" value="0.0" name="calification" class="rating-hidden" checked />
                         <input type="radio" value="0.5" name="calification"
                             class="bg-green-500 mask mask-star-2 mask-half-1" />
@@ -183,8 +184,25 @@
                         class="textarea textarea-bordered textarea-lg w-11/12 m-5 dark:text-slate-200">{{ old('review') }}</textarea>
                     <x-input-error :messages="$errors->get('review')" class="-mt-4 mb-4 font-bold ml-5" />
                 @endcan
-
-                <button class="btn glass rounded-t-none rounded-lg">Publicar</button>
+                <div role="alert" class="alert alert-warning hidden w-11/12 m-3 self-center"
+                    id="reviewLengthAlert">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>El mensaje no debe superar los 500 caracteres. (Tiene <span id="showLength"></span>)</span>
+                </div>
+                <div role="alert" class="alert alert-warning hidden w-11/12 m-3 self-center"
+                    id="calificationAlert">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Debes de dar una calificación.</span>
+                </div>
+                <button class="btn glass rounded-t-none rounded-lg" id="publishBtn">Publicar</button>
             </form>
 
         </div>
@@ -259,5 +277,54 @@
 
     @include('layouts.footer')
 </body>
+<script>
+    //query selector by input name calification
+    const calification = document.querySelectorAll('input[name="calification"]');
+    //query selectors
+    const review = document.querySelector('textarea[name="review"]');
+    const showLength = document.getElementById('showLength');
+    const publishBtn = document.getElementById('publishBtn');
+    const publishForm = document.getElementById('publishForm');
+    const calificationAlert = document.getElementById('calificationAlert');
+
+    //add event listener to each input
+    calification.forEach((input) => {
+        input.addEventListener('click', () => {
+            review.focus();
+        });
+    });
+    review.addEventListener('keyup', () => {
+        if (review.value.length > 500) {
+            review.classList.add('textarea-error');
+            document.getElementById('reviewLengthAlert')
+                .classList
+                .remove('hidden');
+            showLength.innerText = review.value.length;
+            publishBtn.disabled = true;
+        } else {
+            review.classList.remove('textarea-error');
+            document.getElementById('reviewLengthAlert')
+                .classList
+                .add('hidden');
+            publishBtn.disabled = false;
+        }
+    });
+    publishForm.addEventListener('submit', (e) => {
+        //check calification > 0.0
+        if (
+            document.querySelector('input[name="calification"]:checked')
+            .value == 0.0
+        ) {
+            e.preventDefault();
+            calificationAlert.classList.remove('hidden');
+        }
+    });
+    //add checked event listener calification
+    calification.forEach((input) => {
+        input.addEventListener('click', () => {
+            calificationAlert.classList.add('hidden');
+        });
+    });
+</script>
 
 </html>
