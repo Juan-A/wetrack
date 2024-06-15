@@ -52,7 +52,6 @@ class SearchController extends Controller
                 $results = $spotifyController->liveSearch($query, false, config('spotify.liveSearchResults'));
             }
         }
-
         return $results;
     }
 }
