@@ -1,3 +1,5 @@
+<p align="center"><a href="https://en.gravatar.com/" target="_blank"><img src="https://wetrack.juanhc.dev/images/static/wetrack.svg" width="200" alt="Wetrack Logo"></a></p>
+
 ## De la propiedad intelectual
 Los derechos de autor de la aplicación pertenecen a **Juan Antonio Herrero**, en ningún caso al centro o institución de enseñanza, tal y como lo regula la LPI (**Ley de propiedad Intelectual**, Real Decreto Legislativo 1/1996, de 12 de abril), que no especifica nada al respecto de los trabajos realizados por alumnos en centros de enseñanza, y por lo tanto, se entiende que los derechos de autor de los trabajos realizados por los alumnos son de su propiedad, salvo normativa interna de la institución que lo regule).
 
