@@ -1,4 +1,4 @@
-<p align="center"><a href="https://en.gravatar.com/" target="_blank"><img src="https://wetrack.juanhc.dev/images/static/wetrack.svg" width="200" alt="Wetrack Logo"></a></p>
+<p align="center"><a href="https://wetrack.juanhc.dev/" target="_blank"><img src="https://wetrack.juanhc.dev/images/static/wetrack.svg" width="200" alt="Wetrack Logo"></a></p>
 
 
 ## Descripción de componentes de la aplicación
