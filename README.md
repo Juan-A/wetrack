@@ -1,14 +1,5 @@
 <p align="center"><a href="https://en.gravatar.com/" target="_blank"><img src="https://wetrack.juanhc.dev/images/static/wetrack.svg" width="200" alt="Wetrack Logo"></a></p>
 
-## De la propiedad intelectual
-Los derechos de autor de la aplicación pertenecen a **Juan Antonio Herrero**, en ningún caso al centro o institución de enseñanza, tal y como lo regula la LPI (**Ley de propiedad Intelectual**, Real Decreto Legislativo 1/1996, de 12 de abril), que no especifica nada al respecto de los trabajos realizados por alumnos en centros de enseñanza, y por lo tanto, se entiende que los derechos de autor de los trabajos realizados por los alumnos son de su propiedad, salvo normativa interna de la institución que lo regule).
-
-* La difusión de este trabajo es libre, siempre y cuando se respeten los derechos de autor y se cite la fuente original.
-
-* No se permite la copia, modificación o distribución de este trabajo con fines comerciales, sólo de forma educativa o de divulgación.
-
-La aplicación ha sido desarrollada como proyecto final del ciclo superior de **Desarrollo de Aplicaciones Web**.
-
 
 ## Descripción de componentes de la aplicación
 
@@ -182,3 +173,12 @@ public function run(): void
 
 ### PACE.js (for the loading bar)
 <a href='https://github.com/CodeByZach/pace'>Repository</a>
+
+## De la propiedad intelectual
+Los derechos de autor de la aplicación pertenecen a **Juan Antonio Herrero**, en ningún caso al centro o institución de enseñanza, tal y como lo regula la LPI (**Ley de propiedad Intelectual**, Real Decreto Legislativo 1/1996, de 12 de abril), que no especifica nada al respecto de los trabajos realizados por alumnos en centros de enseñanza, y por lo tanto, se entiende que los derechos de autor de los trabajos realizados por los alumnos son de su propiedad, salvo normativa interna de la institución que lo regule).
+
+* La difusión de este trabajo es libre, siempre y cuando se respeten los derechos de autor y se cite la fuente original.
+
+* No se permite la copia, modificación o distribución de este trabajo con fines comerciales, sólo de forma educativa o de divulgación.
+
+La aplicación ha sido desarrollada como proyecto final del ciclo superior de **Desarrollo de Aplicaciones Web**.
